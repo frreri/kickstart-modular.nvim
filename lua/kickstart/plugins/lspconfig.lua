@@ -105,7 +105,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {
+    settings = {
+      pyright = {
+        disableOrganizeImports = true,
+      },
+    },
+  },
+
+  ruff = {
+    capabilities = {
+      general = {
+        positionEncodings = { 'utf-16' },
+      },
+    },
+    on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+  },
   -- tsc = {},
   --
   -- Some languages (like rust) have entire language plugins that can be useful:
@@ -113,8 +128,6 @@ local servers = {
   --
   -- But for many setups, the LSP (`rust_analyzer`) will work just fine
   -- rust_analyzer = {},
-
-  stylua = {}, -- Used to format Lua code
 
   -- Special Lua Config, as recommended by neovim help docs
   lua_ls = {
@@ -174,6 +187,8 @@ require('mason-lspconfig').setup {
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   -- You can add other tools here that you want Mason to install
+  'black',
+  'stylua',
 })
 
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
