@@ -53,7 +53,15 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- Move down (Normal, Insert, Visual)
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==')
+vim.keymap.set('i', '<A-j>', '<Esc>:m .+1<CR>==gi')
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv")
 
+-- Move up (Normal, Insert, Visual)
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==')
+vim.keymap.set('i', '<A-k>', '<Esc>:m .-2<CR>==gi')
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv")
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
